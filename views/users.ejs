@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Users</title>
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+<body>
+    <header>
+        <h1>Matchmaker.com</h1>
+    </header>
+    <h1>All Users</h1>
+    <ul>
+        <% users.forEach(user => { %>
+            <li><%= user.name %> (Age <%= user.age %>, Gender: <%= user.gender %>)</li>
+        <% }) %>
+    </ul>
+    <p><a href="/">Back</a></p>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Preferences</title>
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+<body>
+    <header>
+        <h1>Your Preferences</h1>
+    </header>
+    <ul>
+        <% prefs.forEach(r=>{ %><li><%= r.label %></li><% }) %>
+    </ul>
+    <p><a href="/">Back</a></p>
+</body>
+</html>
