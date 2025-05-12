@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="nav-tabs">
+    <a href="/">Home</a>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+  </header>
+
+  <main class="profile-container">
+    <h2>Register for Matchmaker</h2>
+
+    <form method="POST" action="/register">
+      <label>Username:</label><br>
+      <input type="text" name="username" required><br><br>
+
+      <label>Password:</label><br>
+      <input type="password" name="password" required><br><br>
+
+      <label>Your Gender:</label><br>
+      <select name="gender_id">
+        <% genders.forEach(g => { %>
+          <option value="<%= g.id %>"><%= g.label %></option>
+        <% }) %>
+      </select><br><br>
+
+      <label>Your Orientation:</label><br>
+      <select name="orientation_id">
+        <% orientations.forEach(o => { %>
+          <option value="<%= o.id %>"><%= o.label %></option>
+        <% }) %>
+      </select><br><br>
+
+      <button type="submit">Register</button>
+    </form>
+  </main>
+</body>
+</html>

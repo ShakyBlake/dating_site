@@ -1,0 +1,20 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<header class="nav-tabs">
+  <a href="/">Home</a>
+  <% if (userId) { %>
+    <a href="/">Home</a>
+    <a href="/profile">Profile</a>
+    <a href="/users">Users</a>
+    <a href="/matches">Matches</a>
+    <a href="/logout">Logout</a>
+  <% } else { %>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+  <% } %>
+</header>
+</html>

@@ -10,6 +10,17 @@ const db = new sqlite3.Database('./dating.db', (err) => {
     }
     console.log('Connected to the SQLite database.');
   });
+
+const session = require('express-session');
+
+app.use(session({
+  secret: 'aVerySecretKey',
+  resave: false,
+  saveUninitialized: false
+}));
+
+const authRoutes = require('./routes/auth');
+app.use(authRoutes);
   
 // View engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -18,6 +29,12 @@ app.set("view engine", "ejs");
 // Static files
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
+
+app.use((req, res, next) => {
+  console.log("Session data:", req.session); // Debugging line
+  res.locals.userId = req.session.userId || null;
+  next();
+});
 
 // Routes
 app.get("/", (req, res) => {
@@ -80,7 +97,10 @@ app.get("/preferences", (req, res) => {
       }
     );
   });
-  
+
+  app.get("/profile", (req, res) => {
+    res.render("profile");
+  });
 
 // Start server
 const PORT = process.env.PORT || 5000;
