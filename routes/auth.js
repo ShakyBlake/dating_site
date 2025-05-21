@@ -53,8 +53,8 @@ router.get('/login', (req, res) => {
 // Login POST
 router.post('/login', (req, res) => {
   console.log("Form data received:", req.body); // Debugging line
-  const { username } = req.body.username;
-  const { password } = req.body.password;
+  const username = req.body.username;
+  const password = req.body.password;
 
   db.get(`SELECT * FROM users WHERE username = ?`, [username], async (err, user) => {
     if (err || !user) {

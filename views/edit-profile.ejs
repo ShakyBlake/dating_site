@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h2>Edit Profile</h2>
+<form method="POST" action="/profile/edit">
+  <label>Username (read-only):</label>
+  <input type="text" name="username" value="<%= user.username %>" readonly><br><br>
+
+  <label>Bio:</label><br>
+  <textarea name="bio"><%= user.bio || '' %></textarea><br><br>
+
+  <label>Gender:</label><br>
+  <select name="gender_id">
+    <% genders.forEach(g => { %>
+      <option value="<%= g.id %>" <%= user.gender_id === g.id ? 'selected' : '' %>><%= g.label %></option>
+    <% }) %>
+  </select><br><br>
+
+  <label>Orientation:</label><br>
+  <select name="orientation_id">
+    <% orientations.forEach(o => { %>
+      <option value="<%= o.id %>" <%= user.orientation_id === o.id ? 'selected' : '' %>><%= o.label %></option>
+    <% }) %>
+  </select><br><br>
+
+  <button type="submit">Save Changes</button>
+</form>
+</body>
+</html>

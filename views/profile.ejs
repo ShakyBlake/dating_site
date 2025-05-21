@@ -5,32 +5,25 @@
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <header class="nav-tabs">
-    <a href="/">Home</a>
-    <a href="/profile">Profile</a>
-    <a href="/users">Users</a>
-    <a href="/matches">Matches</a>
-  </header>
+
+  <%- include('partials/header') %>
 
   <main class="profile-container">
     <div class="profile-header">
-      <img src="/public/images/profile_placeholder.jpg" class="profile-img-large">
+      <img src="/images/profile_placeholder.jpg" class="profile-img-large">
       <div class="profile-info">
-        <p><strong>Name:</strong> John Doe</p>
-        <p><strong>Gender:</strong> Male</p>
-        <p><strong>Orientation:</strong> Straight</p>
-        <p><strong>Bio:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
+        <p><strong>Name:</strong> <%= user.username %></p>
+        <p><strong>Gender:</strong> <%= user.gender %></p>
+        <p><strong>Orientation:</strong> <%= user.orientation %></p>
+        <p><strong>Bio:</strong> <%= user.bio || "No bio yet." %></p>
       </div>
     </div>
+    <button><a href="/profile/edit">Edit Profile</a></button>
 
-    <h2>Your Matches:</h2>
-    <div class="match-card">
-      <img src="/public/images/profile_placeholder.jpg" class="profile-img-small">
-      <div>
-        <p><strong>Jane Doe</strong></p>
-        <a href="#">Set up the first date</a>
-      </div>
-    </div>
+    <h2>Your Matches</h2>
+    <p><a href="/matches">Click here to view your matches</a></p>
+
+
   </main>
 </body>
 </html>

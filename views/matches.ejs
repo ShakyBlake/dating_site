@@ -7,11 +7,21 @@
 <body>
     <%- include('partials/header') %>
     <main>
-    <h1>Your Matches</h1>
+    <h2>Your Matches</h2>
+
+    <% if (matches.length === 0) { %>
+    <p>You have no matches yet 😢</p>
+    <% } else { %>
     <ul>
-        <% matches.forEach(r=>{ %><li><%= r.username %></li><% }) %>
+        <% matches.forEach(m => { %>
+        <li>
+            <%= m.username %> |
+            <a href="/users/<%= m.id %>">View Profile</a>
+        </li>
+        <% }) %>
     </ul>
-    <p><a href="/">Back</a></p>
+    <% } %>
+
     </main>
 </body>
 </html>

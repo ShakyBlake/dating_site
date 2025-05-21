@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile - Matchmaker</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <h2><%= user.username %>'s Profile</h2>
+    <p><strong>Gender:</strong> <%= user.gender %></p>
+    <p><strong>Orientation:</strong> <%= user.orientation %></p>
+    <p><strong>Bio:</strong> <%= user.bio || "No bio yet." %></p>
+
+    <form method="POST" action="/like/<%= user.id %>">
+    <button type="submit">Like this user</button>
+    </form>
+
+</body>
+</html>

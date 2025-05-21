@@ -16,5 +16,8 @@ Set-ExecutionPolicy Unrestricted
 
 *npm install express-session bcrypt*
 
+*npm install serve-favicon*
+
+
 ## How to run
 In terminal enter - node app.js

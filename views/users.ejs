@@ -6,12 +6,14 @@
     </head>
 <body>
     <%- include('partials/header') %>
-    <h1>All Users</h1>
+    <h2>Other Users</h2>
     <ul>
-        <% users.forEach(user => { %>
-            <li><%= user.name %> (Age <%= user.age %>, Gender: <%= user.gender %>)</li>
-        <% }) %>
+    <% users.forEach(u => { %>
+        <li>
+        <%= u.username %> |
+        <a href="/users/<%= u.id %>">View Profile</a>
+        </li>
+    <% }) %>
     </ul>
-    <p><a href="/">Back</a></p>
 </body>
 </html>
