@@ -16,6 +16,7 @@
         <% matches.forEach(m => { %>
         <li>
             <%= m.username %> |
+            Email: <%= m.email %><br>
             <a href="/users/<%= m.id %>">View Profile</a>
         </li>
         <% }) %>

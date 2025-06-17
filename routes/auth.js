@@ -31,9 +31,9 @@ router.post('/register', async (req, res) => {
     const hash = await bcrypt.hash(password, 10);
 
     db.run(
-      `INSERT INTO users (username, password, gender_id, orientation_id)
+      `INSERT INTO users (username, password, email, gender_id, orientation_id)
        VALUES (?, ?, ?, ?)`,
-      [username, hash, gender_id, orientation_id],
+      [username, hash, email, gender_id, orientation_id],
       function (err) {
         if (err) return res.send("Registration error: " + err.message);
         req.session.userId = this.lastID; // Auto-login

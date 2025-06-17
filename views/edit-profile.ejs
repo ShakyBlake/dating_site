@@ -14,6 +14,9 @@
   <label>Bio:</label><br>
   <textarea name="bio"><%= user.bio || '' %></textarea><br><br>
 
+  <label>Email:</label><br>
+  <input type="email" name="email" value="<%= user.email %>" required><br><br>
+
   <label>Gender:</label><br>
   <select name="gender_id">
     <% genders.forEach(g => { %>

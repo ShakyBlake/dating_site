@@ -132,7 +132,7 @@ app.get("/matches", (req, res) => {
   if (!me) return res.redirect("/login");
 
   const sql = `
-    SELECT u.id, u.username
+    SELECT u.id, u.username, u.email
     FROM likes l1
     JOIN likes l2 ON l1.liker_id = l2.liked_id AND l1.liked_id = l2.liker_id
     JOIN users u ON u.id = l1.liked_id
@@ -180,11 +180,11 @@ app.get("/matches", (req, res) => {
 
 app.post("/profile/edit", (req, res) => {
   const userId = req.session.userId;
-  const { bio, gender_id, orientation_id } = req.body;
+  const { bio, gender_id, orientation_id, email } = req.body;
 
   db.run(
-    `UPDATE users SET bio = ?, gender_id = ?, orientation_id = ? WHERE id = ?`,
-    [bio, gender_id, orientation_id, userId],
+    `UPDATE users SET bio = ?, gender_id = ?, orientation_id = ?, email = ? WHERE id = ?`,
+    [bio, gender_id, orientation_id, email, userId],
     (err) => {
       if (err) return res.status(500).send("Failed to update profile");
       res.redirect("/profile/edit");
