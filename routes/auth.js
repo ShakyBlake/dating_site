@@ -25,14 +25,14 @@ router.get('/register', (req, res) => {
 
 // Register POST
 router.post('/register', async (req, res) => {
-  const { username, password, gender_id, orientation_id } = req.body;
+  const { username, password, email, gender_id, orientation_id } = req.body;
 
   try {
     const hash = await bcrypt.hash(password, 10);
 
     db.run(
       `INSERT INTO users (username, password, email, gender_id, orientation_id)
-       VALUES (?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?)`,
       [username, hash, email, gender_id, orientation_id],
       function (err) {
         if (err) return res.send("Registration error: " + err.message);
