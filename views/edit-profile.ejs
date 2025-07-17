@@ -7,7 +7,7 @@
 <body>
   <%- include('partials/header') %>
     <h2>Edit Profile</h2>
-<form method="POST" action="/profile/edit">
+<form method="POST" action="/profile/edit" enctype="multipart/form-data">
   <label>Username (read-only):</label>
   <input type="text" name="username" value="<%= user.username %>" readonly><br><br>
 
@@ -30,6 +30,9 @@
       <option value="<%= o.id %>" <%= user.orientation_id === o.id ? 'selected' : '' %>><%= o.label %></option>
     <% }) %>
   </select><br><br>
+
+  <label>Upload Profile Picture:</label>
+  <input type="file" name="profile_pic"><br><br>
 
   <button type="submit">Save Changes</button>
 </form>

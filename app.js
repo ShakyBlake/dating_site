@@ -14,6 +14,19 @@ const db = new sqlite3.Database('./dating.db', (err) => {
 
 const session = require('express-session');
 
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "public", "uploads"));
+  },
+  filename: function (req, file, cb) {
+  const ext = path.extname(file.originalname);
+  cb(null, `user-${req.session.userId}${ext.toLowerCase()}`);
+}
+});
+const upload = multer({ storage: storage });
+
+
 app.use(session({
   secret: 'aVerySecretKey',
   resave: false,
@@ -162,35 +175,55 @@ app.get("/matches", (req, res) => {
   });
 });
 
-
-  app.get("/profile/edit", (req, res) => {
+app.get("/profile/edit", (req, res) => {
   const userId = req.session.userId;
   if (!userId) return res.redirect("/login");
 
   db.get(`SELECT * FROM users WHERE id = ?`, [userId], (err, user) => {
     if (err || !user) return res.status(500).send("User not found");
 
-    db.all(`SELECT * FROM genders`, (err2, genders) => {
-      db.all(`SELECT * FROM orientations`, (err3, orientations) => {
-        res.render("edit-profile", { user, genders, orientations });
+    db.all(`SELECT * FROM genders`, (err, genders) => {
+      if (err) return res.status(500).send("Error loading genders");
+
+      db.all(`SELECT * FROM orientations`, (err, orientations) => {
+        if (err) return res.status(500).send("Error loading orientations");
+
+        res.render("edit-profile", {
+          user,
+          genders,
+          orientations
+        });
       });
     });
   });
 });
 
-app.post("/profile/edit", (req, res) => {
+
+
+app.post("/profile/edit", upload.single("profile_pic"), (req, res) => {
   const userId = req.session.userId;
   const { bio, gender_id, orientation_id, email } = req.body;
 
-  db.run(
-    `UPDATE users SET bio = ?, gender_id = ?, orientation_id = ?, email = ? WHERE id = ?`,
-    [bio, gender_id, orientation_id, email, userId],
-    (err) => {
-      if (err) return res.status(500).send("Failed to update profile");
-      res.redirect("/profile/edit");
+  const profilePic = req.file ? `/uploads/${req.file.filename}` : null;
+
+  const sql = profilePic
+    ? `UPDATE users SET bio = ?, gender_id = ?, orientation_id = ?, email = ?, profile_pic = ? WHERE id = ?`
+    : `UPDATE users SET bio = ?, gender_id = ?, orientation_id = ?, email = ? WHERE id = ?`;
+
+  const params = profilePic
+    ? [bio, gender_id, orientation_id, email, profilePic, userId]
+    : [bio, gender_id, orientation_id, email, userId];
+
+  db.run(sql, params, (err) => {
+    if (err) {
+      console.error("Profile update error:", err); // 🔍 Log the real issue
+      return res.status(500).send("Failed to update profile");
     }
-  );
+    res.redirect("/profile");
+  });
 });
+
+
 
 
 // Start server

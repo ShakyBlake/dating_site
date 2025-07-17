@@ -10,7 +10,7 @@
 
   <main class="profile-container">
     <div class="profile-header">
-      <img src="/images/profile_placeholder.jpg" class="profile-img-large">
+      <img src="<%= user.profile_pic || '/images/default-pfp.png' %>" alt="Profile Picture" width="150">
       <div class="profile-info">
         <p><strong>Name:</strong> <%= user.username %></p>
         <p><strong>Gender:</strong> <%= user.gender %></p>

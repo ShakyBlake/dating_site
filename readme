@@ -18,6 +18,8 @@ Set-ExecutionPolicy Unrestricted
 
 *npm install serve-favicon*
 
+*npm install multer*
+
 
 ## How to run
 In terminal enter - node app.js
